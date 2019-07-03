@@ -47,13 +47,12 @@ socket.on('loginSend', (date) => { // 接收服务器的 登录验证结果
   document.getElementsByClassName('index')[0].style.display = 'block';
 })
 
-
-
 // 发送消息
 function reqs(e) {
   let input = document.getElementById('inputtext').value;
   if ( !e || e.keyCode == 13) {
     socket.emit('req',{ uname , img , text: input }); // 向服务器发送
+    input = '';
   }
 }
 
@@ -72,51 +71,40 @@ socket.on('res',(date) => {
   mytext( uname , img , text);
 })
 
+socket.on('connect_error', (timeout) => {
+  socket.emit('duankai',uname);
+});
+
 function mytext(uname, img , text) {
   let ul = document.getElementById('fontul');
   let li = document.createElement('li');
-  let p = document.createElement('p');
-  p.style.float = 'right';
-  let span1 = document.createElement('span');
-  span1.className = 'name myname';
-  span1.innerHTML = uname;
-  p.appendChild(span1);
-  let span2 = document.createElement('span');
-  span2.className = 'img myimg';
-  span2.style.background = `url('${img}')`;
-  span2.style.backgroundSize = '100% 100%';
-  p.appendChild(span2);
-  let span3 = document.createElement('span');
-  span3.className = 'neir myneir'; 
-  span3.innerHTML = text;
-  p.appendChild(span3);
-  li.appendChild(p);
+  li.className = 'limy';
+  li.style.display = 'flex !important';
+  li.style.justifyContent = 'center'; 
+  let s = `
+  <p>
+    <div style="margin-right: 2vmin;position: relative;">
+      <span class="neir" style="margin-right: 2vmin;border-radius: 1vmin;">${text}</span>
+      <span class="img" style="background:url('${img}');background-size:100% 100%;border-radius: 1vmin;"></span>
+    </div>
+  </p>`;
+  li.innerHTML = s;
   ul.appendChild(li);
 }
 
 function youtexts(uname, img , text) { // 别人打的信息
   let ul = document.getElementById('fontul');
   let li = document.createElement('li');
-  let p = document.createElement('p');
-  let span1 = document.createElement('span');
-  span1.className = 'name';
-  span1.innerHTML = uname;
-  p.appendChild(span1);
-  let span2 = document.createElement('span');
-  span2.className = 'img';
-  span2.style.background = `url('${img}')`;
-  span2.style.backgroundSize = '100% 100%';
-  p.appendChild(span2);
-  let span3 = document.createElement('span');
-  span3.className = 'neir'; 
-  span3.innerHTML = text;
-  p.appendChild(span3);
-  li.appendChild(p);
+  li.className = 'liyou';
+  let s = `
+  <div style="margin-left: 2vmin;position: relative;">
+    <div class="name" style="font-size: 1vmin;padding:0;">${uname}</div>
+    <span class="img" style="background:url('${img}');background-size:100% 100%;border-radius: 1vmin;"></span>
+    <span class="neir" style="margin-left: 2vmin;border-radius: 1vmin;">${text}</span>
+  </div>`;
+  li.innerHTML = s;
   ul.appendChild(li);
 }
-
-
-
 
 
 function m() { // 创建自己
