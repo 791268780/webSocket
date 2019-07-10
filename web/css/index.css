@@ -55,16 +55,24 @@ span {
 
 .name {
   padding: 0 1vmin;
+  display: block;
 }
 
 .img {
-  width: 3vmin;
-  height: 3vmin;
+  width: 4vmin;
+  height: 4vmin;
   margin: 1vmin 0 0 0;
 }
 
 .neir {
-  vertical-align:text-bottom ;
+  display: inline-block;
+  vertical-align:text-top ;
+  white-space: wrap;
+  background: #e8e8e8;
+  min-width: 4vmin;
+  max-width: 25vmin;
+  word-break:break-all;
+  padding: .5vmin;
 }
 
 .ullist {
@@ -101,14 +109,8 @@ li {
   vertical-align:text-bottom ;
 }
 
-#fontul > li > p {
-  padding: 0 2vmin 0 2vmin;
-  min-width: 10vmin;
-  max-width: 30vmin;
-  border: 1px solid red;
+.limy > div {
+  float: right;
 }
 
-#fontul > li {
-  min-height: 10vmin;
-  width: 100%; 
-}
+

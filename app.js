@@ -47,10 +47,19 @@ io.on('connection', function(socket){
 
   // 接收浏览器发送来的消息
   socket.on('req',(date) => {
-    console.log(date);
+    // console.log(date);
     socket.broadcast.emit('restext' , date); // 发给除自己外的所有人
     socket.emit('res', date ); // 回发给自己  测试网路
   })
+
+  // socket.on('disconnecting', (reason) => { // 用户断开连接
+  //   console.log(`${reason}断开连接`);
+  // });
+
+  socket.on('duankai',(date) => {
+    console.log(`${date}断开连接`);
+  })
+
 
  
 
